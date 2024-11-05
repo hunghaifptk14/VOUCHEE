@@ -1,10 +1,50 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:vouchee/model/cart.dart';
 import 'package:vouchee/model/category.dart';
 import 'package:vouchee/model/modal.dart';
 import 'package:vouchee/model/near_voucher.dart';
 import 'package:vouchee/model/voucher.dart';
+
+class GetVoucherById {
+  final String apiUrl = 'https://api.vouchee.shop/api/v1/voucher/get_voucher/';
+
+  Future<Voucher> fetchVoucherById(String voucherId) async {
+    try {
+      final response = await http.get(Uri.parse('$apiUrl$voucherId'));
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        final voucherData = jsonData['results'];
+        return Voucher.fromJson(voucherData);
+      } else {
+        throw Exception('Không tải được sản phẩm');
+      }
+    } catch (e) {
+      print(e);
+      throw Exception('Không tải được sản phẩm: $e');
+    }
+  }
+}
+
+class GetModalById {
+  final String apiUrl = 'https://api.vouchee.shop/api/v1/modal/get_modal/';
+
+  Future<Modal> fetchModalById(String modalId) async {
+    try {
+      final response = await http.get(Uri.parse('$apiUrl$modalId'));
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        return Modal.fromJson(jsonData);
+      } else {
+        throw Exception('Không tải được sản phẩm');
+      }
+    } catch (e) {
+      print(e);
+      throw Exception('Không tải được sản phẩm: $e');
+    }
+  }
+}
 
 class GetAllVouchers {
   final String apiUrl =

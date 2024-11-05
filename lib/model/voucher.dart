@@ -1,5 +1,6 @@
 import 'package:vouchee/model/address.dart';
 import 'package:vouchee/model/category.dart';
+import 'package:vouchee/model/modal.dart';
 
 class Voucher {
   final String id;
@@ -20,6 +21,7 @@ class Voucher {
   final String brandImage;
   final Category categories;
   final Address address;
+  final List<Modal> modals; // Change 'modal' to 'modals'
 
   Voucher({
     required this.id,
@@ -40,29 +42,33 @@ class Voucher {
     required this.brandImage,
     required this.categories,
     required this.address,
+    required this.modals, // Change 'modal' to 'modals'
   });
 
   factory Voucher.fromJson(Map<String, dynamic> json) {
     return Voucher(
-      id: json['id'],
-      title: json['title'],
-      description: json['description'],
-      rating: (json['rating'] ?? 0).toDouble(),
-      video: json['video'] ?? '',
-      stock: (json['stock'] ?? 0).toDouble(),
-      createDate: json['createDate'] ?? '',
-      sellerId: json['sellerId'] ?? '',
-      percentDiscount: (json['percentDiscount'] ?? 0).toDouble(),
-      originalPrice: (json['originalPrice'] ?? 0).toDouble(),
-      sellPrice: (json['sellPrice'] ?? 0).toDouble(),
-      salePrice: (json['salePrice'] ?? 0).toDouble(),
-      image: json['image'] ?? '',
-      brandId: json['brandId'] ?? '',
-      brandName: json['brandName'] ?? '',
-      brandImage: json['brandImage'] ?? '',
-      categories: Category.fromJson(json),
-      address: Address.fromJson(json),
-    );
+        id: json['id'],
+        title: json['title'],
+        description: json['description'],
+        rating: (json['rating'] ?? 0).toDouble(),
+        video: json['video'] ?? '',
+        stock: (json['stock'] ?? 0).toDouble(),
+        createDate: json['createDate'] ?? '',
+        sellerId: json['sellerId'] ?? '',
+        percentDiscount: (json['percentDiscount'] ?? 0).toDouble(),
+        originalPrice: (json['originalPrice'] ?? 0).toDouble(),
+        sellPrice: (json['sellPrice'] ?? 0).toDouble(),
+        salePrice: (json['salePrice'] ?? 0).toDouble(),
+        image: json['image'] ?? '',
+        brandId: json['brandId'] ?? '',
+        brandName: json['brandName'] ?? '',
+        brandImage: json['brandImage'] ?? '',
+        categories: Category.fromJson(json),
+        address: Address.fromJson(json),
+        modals: (json['modals'] as List<dynamic>?)
+                ?.map((modal) => Modal.fromJson(modal))
+                .toList() ??
+            []); // Parse modals from JSON
   }
 
   Map<String, dynamic> toMap() {
@@ -85,6 +91,8 @@ class Voucher {
       'brandImage': brandImage,
       'categories': categories.toMap(),
       'address': address.toMap(),
+      'modals':
+          modals.map((modal) => modal.toMap()).toList(), // Map modals to JSON
     };
   }
 }

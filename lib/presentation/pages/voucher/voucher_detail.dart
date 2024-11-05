@@ -14,13 +14,14 @@ class VoucherDetailPage extends StatefulWidget {
 }
 
 class _VoucherDetailPageState extends State<VoucherDetailPage> {
-  late Future<List<Voucher>> futureVoucher;
-  final GetAllVouchers apiService = GetAllVouchers();
+  late Future<Voucher> futureVoucher;
+  final GetVoucherById apiService = GetVoucherById();
 
   @override
   void initState() {
     super.initState();
-    futureVoucher = apiService.fetchVouchers(); // Fetch data on init
+    futureVoucher =
+        apiService.fetchVoucherById(widget.voucher.id); // Fetch data on init
   }
 
   @override
@@ -90,7 +91,7 @@ class _VoucherDetailPageState extends State<VoucherDetailPage> {
 
                     // Display Addresses (if any)
 
-                    Container(child: ModalList())
+                    Container(child: ModalList(voucherId: widget.voucher.id))
                   ],
                 ),
               ),

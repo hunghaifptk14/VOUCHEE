@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:vouchee/core/configs/theme/app_color.dart';
 import 'package:vouchee/model/modal.dart';
-
 import 'package:vouchee/networking/api_request.dart';
 import 'package:vouchee/presentation/widgets/buttons/basic_button.dart';
 
@@ -68,9 +67,9 @@ class _ModalsDetailPageState extends State<ModalsDetailPage> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(14),
-                child: widget.modal.imageUrl.isNotEmpty
+                child: widget.modal.image.isNotEmpty
                     ? Image.network(
-                        widget.modal.imageUrl,
+                        widget.modal.image,
                         fit: BoxFit.cover,
                         width: double.infinity,
                         height: 140,

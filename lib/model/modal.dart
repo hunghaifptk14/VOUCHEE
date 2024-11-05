@@ -7,7 +7,7 @@ class Modal {
   final double sellPrice;
   final double salePrice;
   final double percentDiscount;
-  final String imageUrl;
+  final String image;
   final double index;
   final String startDate;
   final String endDate;
@@ -21,7 +21,7 @@ class Modal {
     required this.sellPrice,
     required this.salePrice,
     required this.percentDiscount,
-    required this.imageUrl,
+    required this.image,
     required this.index,
     required this.startDate,
     required this.endDate,
@@ -37,7 +37,7 @@ class Modal {
       'sellPrice': sellPrice,
       'salePrice': salePrice,
       'percentDiscount': percentDiscount,
-      'imageUrl': imageUrl,
+      'image': image,
       'stock': stock,
     };
   }
@@ -51,11 +51,28 @@ class Modal {
       originalPrice: (json['originalPrice'] ?? 0).toDouble(),
       sellPrice: (json['sellPrice'] ?? 0).toDouble(),
       salePrice: (json['salePrice'] ?? 0).toDouble(),
-      imageUrl: json['imageUrl'] ?? '',
+      image: json['image'] ?? '',
       stock: (json['stock'] ?? 0).toDouble(),
       index: (json['index'] ?? 0).toDouble(),
       endDate: json['endDate'] ?? '',
       startDate: json['startDate'] ?? '',
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'voucherId': voucherId,
+      'title': title,
+      'originalPrice': originalPrice,
+      'sellPrice': sellPrice,
+      'salePrice': salePrice,
+      'percentDiscount': percentDiscount,
+      'image': image,
+      'index': index,
+      'startDate': startDate,
+      'endDate': endDate,
+      'stock': stock,
+    };
   }
 }

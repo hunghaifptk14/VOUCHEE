@@ -1,40 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:vouchee/core/configs/theme/app_color.dart';
-import 'package:vouchee/model/modal.dart';
+import 'package:vouchee/model/voucher.dart';
 import 'package:vouchee/networking/api_request.dart';
 import 'package:vouchee/presentation/pages/voucher/modal_detail.dart';
 
 class ModalList extends StatefulWidget {
   // Constructor to pass the selected voucher to this screen
-  const ModalList({super.key});
+  final String voucherId;
+  const ModalList({super.key, required this.voucherId});
 
   @override
   State<ModalList> createState() => _ModalListState();
 }
 
 class _ModalListState extends State<ModalList> {
-  late Future<List<Modal>> futureModal;
-  final GetAllModals apiService = GetAllModals();
+  late Future<Voucher> futureVoucher;
+  final GetVoucherById apiService = GetVoucherById();
 
   @override
   void initState() {
     super.initState();
-    futureModal = apiService.fetchModal(); // Fetch data on init
+    futureVoucher =
+        apiService.fetchVoucherById(widget.voucherId); // Fetch data on init
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Modal>>(
-        future: futureModal,
+    return FutureBuilder<Voucher>(
+        future: futureVoucher,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          } else if (!snapshot.hasData || snapshot.data!.modals.isEmpty) {
             return Center(child: Text('No vouchers found'));
           }
-          List<Modal> modals = snapshot.data!;
+          Voucher voucher = snapshot.data!;
           return GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -45,9 +47,9 @@ class _ModalListState extends State<ModalList> {
               mainAxisSpacing: 10,
               childAspectRatio: 0.86,
             ),
-            itemCount: modals.length,
+            itemCount: voucher.modals.length,
             itemBuilder: (context, index) {
-              final modal = modals[index];
+              final modal = voucher.modals[index];
               return InkWell(
                 onTap: () {
                   Navigator.push(
@@ -68,9 +70,9 @@ class _ModalListState extends State<ModalList> {
                           padding: const EdgeInsets.all(4.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
-                            child: modal.imageUrl.isNotEmpty
+                            child: modal.image.isNotEmpty
                                 ? Image.network(
-                                    modal.imageUrl,
+                                    modal.image,
                                     fit: BoxFit.cover,
                                     width: double.infinity,
                                     height: 150,
