@@ -93,8 +93,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _loginWithGoogle() {
-    final String googleAccessToken =
-        "eyJhbGciOiJSUzI1NiIsImtpZCI6ImU2YWMzNTcyNzY3ZGUyNjE0ZmM1MTA4NjMzMDg3YTQ5MjMzMDNkM2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiQWRtaW4gVm91Y2hlZSIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NLODdtLTVZd0dJLTJjbVliNUNJLWtXLTlkT3Vkemg1ODRoNEVIaTJtT2I4Ri1rSnc9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdm91Y2hlZS01MDRkYSIsImF1ZCI6InZvdWNoZWUtNTA0ZGEiLCJhdXRoX3RpbWUiOjE3MzA2NDkxNTAsInVzZXJfaWQiOiJWVUtGY1B5Z2VtTkE4Q29md3VLOEV1ZW9LMHkyIiwic3ViIjoiVlVLRmNQeWdlbU5BOENvZnd1SzhFdWVvSzB5MiIsImlhdCI6MTczMDY0OTE1MCwiZXhwIjoxNzMwNjUyNzUwLCJlbWFpbCI6ImFkdm91Y2hlZUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjEwODg2NTgzMDc1NzIxNjY5OTk1MCJdLCJlbWFpbCI6WyJhZHZvdWNoZWVAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.NjrWwEFJUXa5S3C8cvKZgy9P7liwJ0CFcEs6lmIimRB9n39iTpjPsbGyhgIh-lW-FkeqiLlijEg7NJtJ4L7Q9H0x6AklPfB_s-PYS_mm9ckrgg-IEulVWoq-T6Kq0zo4No_arb1N2aCAcLxis_X-1apEaRc4lakIog2gZgdFW0QU7bic79w6qKutOnAMawlyPpcCT9eg1t07PwMiGbs46ukTM11xRBLb0r2DDk2zetQYwTkJj-flpzB71ZpQPRk2gjPtdfgz1RqiNrix0S644Ah-3cHUEGijTAgWO_DeJGvLzNhaIUPQ73QAGsJ7gDf89wAzu-C0e6YTWa4uOWxf5w";
     return ElevatedButton(
       onPressed: () async {
         // if (await confirm(
@@ -108,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
         // }
         // return print('pressedCancel');
         // User? user = await _authService.signInWithGoogle(googleAccessToken);
-        User? user = await _authService.signInWithGoogle(googleAccessToken);
+        User? user = await _authService.signInWithGoogle();
 
         Navigator.pushReplacement(
             context,

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:vouchee/core/configs/theme/app_theme.dart';
 import 'package:vouchee/presentation/pages/login/login.dart';
 
+import 'firebase_options.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // FirebaseAuth.instance.setLanguageCode('en');
   runApp(
       //   MultiProvider(
